@@ -1,0 +1,12 @@
+<html xmlns:th="http:/>/www.thymeleaf.org">
+<body>
+<p th:text="'hello ' + ${name}">hello empty</p>
+</body>
+</html>
+
+<!--웹 브라우저에서 http://localhost:8080/hello-mvc 입력
+    → 내장 톰캣 서버가 스프링에게 넘김
+    → helloController에서 hello-mvc가 겟 매핑으로 되어있는 걸 찾음
+    → 컨트롤러에서 return 값은 hello-template, model에 키는 name이고 값은 spring
+    → 뷰 리졸버가 return 값에 해당하는 이름과 똑같은 파일을 찾음 templates/hello-template.html을 찾아서 타임리프 템플릿 엔진 처리
+    → 변환 후 웹 브라우저에 넘겨줌-->

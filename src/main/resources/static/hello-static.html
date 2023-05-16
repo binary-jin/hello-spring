@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>static content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+정적 컨텐츠입니다
+</body>
+</html>
+
+<!--웹브라우저에서 http://localhost:8080/hello-static.html 입력
+    → 내장 톰캣 서버가 요청을 받아서 스프링에게 넘김
+    → 스프링이 먼저 컨트롤러에서 hello-static이 있나 찾아봄(컨트롤러가 먼저 우선순위를 가진다는 뜻임)
+    → 컨트롤러에 없으면 resources 안에 있는 static/hello-static.html 을 찾아서 반환해줌-->
