@@ -9,7 +9,11 @@ import java.util.Optional;
 
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    } //memberRepository를 직접 new로 생성하는 게 아니라 외부에서 가져오게 바꿈
 
     public Long join(Member member) {  //회원가입
         //같은 이름이 있는 중복 회원은 가입이 안 됨
