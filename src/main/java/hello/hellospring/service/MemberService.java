@@ -5,12 +5,14 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 //@Service //이걸 붙이면 스프링이 서비스넹 하고 스프링 컨테이너에 등록해줌
 //원래 @component를 붙이면 되는데 service 안에 component가 포함 되어있음 (repository, controller도 마찬가지)
+@Transactional //데이터를 저장, 변경 할 때 항상 있어야함
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -21,11 +23,22 @@ public class MemberService {
     } //memberRepository를 직접 new로 생성하는 게 아니라 외부에서 가져오게 바꿈
 
     public Long join(Member member) {  //회원가입
-        //같은 이름이 있는 중복 회원은 가입이 안 됨
-        ValidateDuplicateMember(member); //중복 회원 검증
 
-        memberRepository.save(member);
-        return member.getId(); //저장하고 아이디만 반환해주겠다,,,
+        long start = System.currentTimeMillis();
+
+        try{
+            //같은 이름이 있는 중복 회원은 가입이 안 됨
+            ValidateDuplicateMember(member); //중복 회원 검증
+
+            memberRepository.save(member);
+            return member.getId(); //저장하고 아이디만 반환해주겠다,,,
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join =" + timeMs + "ms");
+        }
+
+
     }
 
     private void ValidateDuplicateMember(Member member) {
