@@ -24,20 +24,11 @@ public class MemberService {
 
     public Long join(Member member) {  //회원가입
 
-        long start = System.currentTimeMillis();
-
-        try{
             //같은 이름이 있는 중복 회원은 가입이 안 됨
             ValidateDuplicateMember(member); //중복 회원 검증
 
             memberRepository.save(member);
             return member.getId(); //저장하고 아이디만 반환해주겠다,,,
-        } finally {
-            long finish = System.currentTimeMillis();
-            long timeMs = finish - start;
-            System.out.println("join =" + timeMs + "ms");
-        }
-
 
     }
 
@@ -50,7 +41,8 @@ public class MemberService {
     }
 
     public List<Member> findMembers() { //전체 회원 조회
-        return memberRepository.findAll();
+
+            return memberRepository.findAll();
     }
 
     public Optional<Member> findOne(Long memberId) {
